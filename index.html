@@ -64,7 +64,7 @@
             object-fit: cover;
         }
 
-        .contact-links a {
+        .contact-links a, .contact-links button {
             display: inline-block;
             margin-right: 10px;
             margin-bottom: 10px;
@@ -72,45 +72,84 @@
             text-decoration: none;
             font-weight: bold;
             border: 1px solid var(--accent);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 5px;
             transition: 0.3s;
+            background: transparent;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: inherit;
         }
 
-        .contact-links a:hover {
+        .contact-links a:hover, .contact-links button:hover {
             background: var(--accent);
             color: white;
         }
 
-        /* DIGITAL BUSINESS CARD STYLES */
-        .vcard-preview-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            background: rgba(0,0,0,0.3);
+        .btn-card-trigger {
+            border-color: #2ecc71 !important;
+            color: #2ecc71 !important;
         }
 
-        .biz-card {
-            background: linear-gradient(135deg, #111e2e 0%, #0a131d 100%);
-            border: 1px solid rgba(52, 152, 219, 0.4);
-            border-radius: 16px;
-            padding: 25px;
+        .btn-card-trigger:hover {
+            background: #2ecc71 !important;
+            color: white !important;
+        }
+
+        /* MODAL POP-UP STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 480px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(52, 152, 219, 0.05);
-            position: relative;
-            text-decoration: none;
-            color: var(--text-main);
-            display: block;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .biz-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(52, 152, 219, 0.3);
-            border-color: var(--accent);
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .biz-card-modal {
+            background: linear-gradient(135deg, #111e2e 0%, #0a131d 100%);
+            border: 1px solid rgba(52, 152, 219, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(52, 152, 219, 0.1);
+            position: relative;
+            color: var(--text-main);
+            text-align: left;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal-btn:hover {
+            color: white;
         }
 
         .biz-header {
@@ -123,8 +162,8 @@
         }
 
         .biz-avatar {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 3px solid var(--accent);
             object-fit: cover;
@@ -133,25 +172,43 @@
         .biz-details p {
             margin: 6px 0;
             font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .biz-download-badge {
+        .qr-section {
+            text-align: center;
             margin-top: 20px;
-            background: var(--accent);
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .qr-code-img {
+            width: 130px;
+            height: 130px;
+            background: white;
+            padding: 6px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .download-vcf-btn {
+            display: block;
+            width: 100%;
+            background: #2ecc71;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.2s;
+            box-sizing: border-box;
+        }
+
+        .download-vcf-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
         }
 
         /* CONTENT SECTIONS */
@@ -269,18 +326,20 @@
                     <a href="https://linkedin.com/in/yoseph-alula-4202371b0" target="_blank">LinkedIn</a>
                     <a href="https://github.com/YosephNegussie" target="_blank">GitHub</a>
                     <a href="Yoseph_Alula_CV.pdf" target="_blank">Download CV</a>
+                    <button id="openCardBtn" class="btn-card-trigger">Business Card</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- DIGITAL BUSINESS CARD DISPLAY SECTION -->
-    <div class="vcard-preview-wrapper">
-        <a href="contact.vcf" download="Yoseph_Negussie_Alula.vcf" class="biz-card" title="Click to download vCard">
+    <!-- BUSINESS CARD POP-UP MODAL -->
+    <div id="vcardModal" class="modal-overlay">
+        <div class="biz-card-modal">
+            <button id="closeCardBtn" class="close-modal-btn">&times;</button>
             <div class="biz-header">
                 <img src="yoseph-alula.jpg" alt="Yoseph Negussie Alula" class="biz-avatar">
                 <div>
-                    <h3 style="margin: 0; color: #fff; font-size: 1.4rem;">Yoseph Negussie Alula</h3>
+                    <h3 style="margin: 0; color: #fff; font-size: 1.3rem;">Yoseph Negussie Alula</h3>
                     <p style="margin: 3px 0 0 0; color: var(--accent); font-weight: bold; font-size: 0.9rem;">Co-founder & CEO</p>
                     <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: #888;">OmniStackIT</p>
                 </div>
@@ -291,10 +350,16 @@
                 <p>🌐 omnistackit.com</p>
                 <p>📍 Addis Ababa, Ethiopia</p>
             </div>
-            <div class="biz-download-badge">
-                📇 Click Business Card to Save Contact (.vcf)
+            
+            <div class="qr-section">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yosephnegussie.github.io/my-profile/contact.vcf" alt="Scan QR to save contact" class="qr-code-img">
+                <p style="margin: 8px 0 0 0; font-size: 0.75rem; color: #aaa;">Scan with camera or click button below to save contact</p>
             </div>
-        </a>
+
+            <a href="contact.vcf" download="Yoseph_Negussie_Alula.vcf" class="download-vcf-btn">
+                📥 Save Contact (.vcf)
+            </a>
+        </div>
     </div>
 
     <div class="content-block">
@@ -394,5 +459,26 @@
         <p>© 2026 Yoseph Negussie Alula | OmniStackIT</p>
         <p style="font-size: 0.7rem; color: #222;">HTTPS Encrypted & Git Managed</p>
     </footer>
+
+    <!-- MODAL SCRIPT -->
+    <script>
+        const modal = document.getElementById('vcardModal');
+        const openBtn = document.getElementById('openCardBtn');
+        const closeBtn = document.getElementById('closeCardBtn');
+
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
