@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Yoseph Niguse
+N:Niguse;Yoseph;;;
+ORG:OmniStackIT
+TITLE:Co-founder & CEO
+EMAIL;TYPE=INTERNET,WORK:yoseph.alula@omnistackit.com
+EMAIL;TYPE=INTERNET,HOME:yoseph.alula1@gmail.com
+URL;TYPE=Company:https://omnistackit.com
+URL;TYPE=Portfolio:https://yosephnegussie.github.io/my-profile/
+URL;TYPE=LinkedIn:https://linkedin.com/in/yoseph-alula-4202371b0
+URL;TYPE=GitHub:https://github.com/YosephNegussie
+ADR;TYPE=WORK:;;Addis Ababa;;;Ethiopia
+END:VCARD
